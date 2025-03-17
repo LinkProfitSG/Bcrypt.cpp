@@ -8,4 +8,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(${PROJECT_NAME} src/bcrypt.cpp src/blowfish.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} PUBLIC include/)

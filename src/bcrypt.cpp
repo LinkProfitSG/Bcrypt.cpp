@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <sys/types.h>
-#include <string.h>
+#include <string.
 
 #ifdef _WIN32
 #define snprintf _snprintf
@@ -327,7 +327,7 @@ std::string bcrypt::generate_hash(std::string_view str, unsigned int round) {
 
   arc4random_buf(seed, 16);
 
-  bcrypt_gensalt('b', rounds, seed, salt);
+  bcrypt_gensalt('b', round, seed, salt);
 
   std::string hash(61, '\0');
   node_bcrypt(str.data(), str.length(), salt, &hash[0]);
