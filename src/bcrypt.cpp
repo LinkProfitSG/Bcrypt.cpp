@@ -31,16 +31,17 @@
  *
  */
 
+#include "node_blf.h"
+
+#include "bcrypt/bcrypt.hpp"
+
+#include "openbsd.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <sys/types.h>
 #include <string.h>
-
-#include "node_blf.h"
-
-#include "bcrypt.h"
-#include "openbsd.h"
 
 #ifdef _WIN32
 #define snprintf _snprintf
@@ -318,25 +319,25 @@ encode_base64(u_int8_t *buffer, u_int8_t *data, u_int16_t len)
 	*bp = '\0';
 }
 
-std::string bcrypt::generateHash(const std::string &password, unsigned int rounds) {
-    char salt[_SALT_LEN];
+std::string bcrypt::generate_hash(std::string_view str, unsigned int round) {
+  char salt[_SALT_LEN];
 
-    unsigned char seed[17]{};
-	arc4random_init();
-	
-    arc4random_buf(seed, 16);
+  unsigned char seed[17]{};
+  arc4random_init();
 
-    bcrypt_gensalt('b', rounds, seed, salt);
+  arc4random_buf(seed, 16);
 
-    std::string hash(61, '\0');
-    node_bcrypt(password.c_str(), password.size(), salt, &hash[0]);
-    hash.resize(60);
-    return hash;
+  bcrypt_gensalt('b', rounds, seed, salt);
+
+  std::string hash(61, '\0');
+  node_bcrypt(str.data(), str.length(), salt, &hash[0]);
+  hash.resize(60);
+  return hash;
 }
 
-bool bcrypt::validatePassword(const std::string &password, const std::string &hash) {
-    std::string got(61, '\0');
-    node_bcrypt(password.c_str(), password.size(), hash.c_str(), &got[0]);
-    got.resize(60);
-    return hash == got;
+bool bcrypt::validate_hash(std::string_view str, std::string_view hash) {
+  std::string got(61, '\0');
+  node_bcrypt(str.data(), str.length(), hash.data(), &got[0]);
+  got.resize(60);
+  return hash == got;
 }

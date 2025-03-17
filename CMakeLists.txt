@@ -4,13 +4,8 @@ option(BUILD_TESTS "Build test programs" OFF)
 
 project(bcrypt)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
-add_library(bcrypt src/bcrypt.cpp src/blowfish.cpp)
-target_include_directories(bcrypt PRIVATE src/)
-target_include_directories(bcrypt PUBLIC include/)
+add_library(${PROJECT_NAME} src/bcrypt.cpp src/blowfish.cpp)
 
-if(BUILD_TESTS)
-  add_executable(test test/main.cpp)
-  target_link_libraries(test PRIVATE bcrypt)
-endif()
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
