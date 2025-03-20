@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <sys/types.h>
-#include <string.
+#include <string>
 
 #ifdef _WIN32
 #define snprintf _snprintf

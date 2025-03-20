@@ -1,5 +1,6 @@
 #ifndef BCRYPT_HPP
 #define BCRYPT_HPP
+
 #include <string_view>
 
 namespace bcrypt {
