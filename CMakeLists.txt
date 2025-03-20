@@ -4,7 +4,7 @@ option(BUILD_TESTS "Build test programs" OFF)
 
 project(bcrypt)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 
 add_library(${PROJECT_NAME} src/bcrypt.cpp src/blowfish.cpp)
 
